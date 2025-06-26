@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="country">Enter a country name</label>
+    :
+    <input type="text" id="country" />
+    <div id="suggestions"></div>
+  </body>
+
+  <script>
+    const countryList = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua-and-Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Autria", "Azerbaïjan"];
+    let suggestions = document.getElementById("suggestions");
+    let country_input = document.getElementById("country");
+
+    country_input.addEventListener("input", (e) => {
+      suggestions.innerHTML = " ";
+      countriesFiltered = countryList.filter((country) => country.startsWith(e.target.value));
+      countriesFiltered.forEach((country) => {
+        let new_element = document.createElement("div");
+        new_element.innerText = country;
+        new_element.id = "suggestion";
+        suggestions.appendChild(new_element);
+      });
+      let all_elements = document.querySelectorAll("#suggestion");
+      console.log("all_elements: ", all_elements);
+      all_elements.forEach((element) => {
+        element.addEventListener("click", (e) => {
+          country_input.value = e.originalTarget.innerText;
+          suggestions.innerHTML = " ";
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* Add spacing between each country suggestion */
+    /* Add spacing between each country suggestion */
+    #suggestion {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+
+    /* Change suggestion color when hovering it with the mouse */
+    #suggestion:hover {
+      background-color: #adf;
+      cursor: pointer;
+    }
+
+    /* Position the suggestion list just below the input box */
+    #suggestions {
+      position: absolute;
+      border: 1px solid black;
+      left: 155px;
+    }
+  </style>
+</html>
